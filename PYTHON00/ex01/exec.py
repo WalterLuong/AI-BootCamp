@@ -1,11 +1,23 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    exec.py                                            :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/12/07 04:28:28 by wluong            #+#    #+#              #
+#    Updated: 2022/12/07 04:28:30 by wluong           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 import sys
 
 arguments = ""
 final_string = ""
 
-for str in sys.argv[1::]:
-	arguments += str
-	if str != sys.argv[-1] :
+for strings in sys.argv[1::]:
+	arguments += strings
+	if strings != sys.argv[-1] :
 		arguments += " "
 
 

@@ -1,5 +1,5 @@
 Output a list of installed packages and their versions:
-	pip list
+	pip list || conda list
 
 Show the package metadata of numpy:
 	pip show numpy

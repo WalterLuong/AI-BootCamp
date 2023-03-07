@@ -6,9 +6,11 @@
 #    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 05:09:43 by wluong            #+#    #+#              #
-#    Updated: 2022/12/05 05:09:45 by wluong           ###   ########.fr        #
+#    Updated: 2022/12/07 04:03:04 by wluong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+from simple_colors import *
 
 cookbook = {
 
@@ -36,9 +38,9 @@ cookbook = {
 }
 
 def print_recipees():
-	print("\033[1;33mYou have the following recipees:\033[m")
+	print(yellow("You have the following recipees:", 'bold'))
 	for k in cookbook:
-		print("\033[3;33m\t%s\033[m" % k)
+		print(yellow("\t%s" % k, 'italic'))
 
 def print_recipe_detail(name):
 	for k in cookbook:
@@ -60,10 +62,10 @@ def remove_recipe(name):
 def add_recipe():
 	
 	while True:
-		name = input('\033[1;35m>>> Enter a name: \n\033[m')
+		name = input(magenta('>>> Enter a name:', 'bold'))
 		if name:
 			break
-	print("\033[1;35m>>> Enter ingredients:\033[m")
+	print(magenta(">>> Enter ingredients:", 'bold'))
 	ingredients = []
 	while True:
 		new = input()
@@ -72,18 +74,18 @@ def add_recipe():
 		elif new:
 			ingredients.append(new)
 		else:
-			print("\033[1;31mYou should have at least 1 ingredient.\033[m")
+			print(red("You should have at least 1 ingredient.", 'bold'))
 	while True:
-		meal = input("\033[1;35m>>> Enter a meal type: \n\033[m")
+		meal = input(magenta(">>> Enter a meal type: \n", 'bold'))
 		if meal:
 			break
-	print("\033[1;35m>>> Enter a preparation time:\033[m")
+	print(magenta(">>> Enter a preparation time:", 'bold'))
 	while True:
 		prep_time = input()
 		if not prep_time:
-			print("\033[1;31mPlease enter the time.\033[m")
+			print(red("Please enter the time.", 'bold'))
 		elif not prep_time.isdigit():
-			print("\033[1;31mThe time must bean integer.\033[m")
+			print(red("The time must bean integer.", 'bold'))
 		else:
 			break
 
@@ -96,26 +98,26 @@ def add_recipe():
 
 
 if __name__=="__main__":
-	print("\033[1;4;32mWelcome to the Python Cookbook !\033[m")
+	print(green("Welcome to the Python Cookbook !",['bold', 'underlined']))
 	while True:
 		print ("\033[3m\nList of available option:\n\n" + "\t1: Add a recipe\n" + "\t2: Delete a recipe\n" + "\t3: Print a recipe\n" + "\t4: Print the cookbook\n" + "\t5: Quit\n\033[m" )
-		print("\033[1;34mPlease select an option:")
-		option = input(">> \033[m")
+		print(blue("Please select an option:", 'bold'))
+		option = input(blue(">> ", 'bold'))
 		print("")
 		if not option:
-			print("\033[1;31mYou must enter an option.\033[m")
+			print(red("You must enter an option.", 'bold'))
 		elif not option.isdigit() or int(option) > 5:
-			print("\033[1;31mSorry, this option does not exist.\033[m")
+			print(red("Sorry, this option does not exist.", 'bold'))
 		elif int(option) == 1:
 			add_recipe()
 		elif int(option) == 2:
-			delete = input("\033[1;34mEnter the recipe you want to delete:\n>>> \033[m")
+			delete = input(cyan("Enter the recipe you want to delete:\n>>> ", 'bold'))
 			remove_recipe(delete)
 		elif int(option) == 3:
-			details = input("\033[1;34mPlease enter a recipe name to get its details:\n>>> \033[m")
+			details = input(cyan("Please enter a recipe name to get its details:\n>>> ", 'bold'))
 			print_recipe_detail(details)
 		elif int(option) == 4:
 			print_recipees()
 		elif int(option) == 5:
-			print("\033[1;5;4;31mCookbook closed. Goodbye\033[m")
+			print(red("Cookbook closed. Goodbye.", ['underlined', 'bold']))
 			break

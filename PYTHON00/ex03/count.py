@@ -6,9 +6,11 @@
 #    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 04:58:46 by wluong            #+#    #+#              #
-#    Updated: 2022/12/05 04:58:48 by wluong           ###   ########.fr        #
+#    Updated: 2022/12/07 03:26:49 by wluong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+import string
 
 def text_analyzer(text):
 	"""
@@ -16,7 +18,7 @@ def text_analyzer(text):
 	punctuation and spaces in a given text.
 	"""
 	text = str(text)
-	punctuation = ",.;!?-'"
+	punctuation = str(string.punctuation)
 	characters = len(text)
 	upper_char = sum(1 for upper in text if upper.isupper())
 	lower_char = sum(1 for lower in text if lower.islower())
@@ -33,5 +35,8 @@ import sys
 if __name__=="__main__":
 	if len(sys.argv) > 2:
 		print("Too much arguments.")
+	elif len(sys.argv) < 2:
+		user_input = input(">>>")
+		text_analyzer(user_input)
 	else :
 		text_analyzer(sys.argv[1])

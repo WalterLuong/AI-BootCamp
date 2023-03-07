@@ -6,7 +6,7 @@
 #    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 05:11:30 by wluong            #+#    #+#              #
-#    Updated: 2022/12/05 05:11:31 by wluong           ###   ########.fr        #
+#    Updated: 2022/12/07 04:27:21 by wluong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ import sys
 def ft_progress(lst):
 	start_time = time.time()
 	bar_size = 30
-	for i in lst:
+	for i in range(len(lst)):
 		ratio = (i + 1) * 100 / len(lst)
 		elapsed_time = time.time() - start_time
 		eta = elapsed_time / ratio * 100 - elapsed_time 
@@ -31,7 +31,7 @@ def ft_progress(lst):
 
 
 if __name__ == "__main__":
-	listy = range(3333)
+	listy = range(-1, 1000)
 	ret = 0
 	for elem in ft_progress(listy):
 		ret += elem
