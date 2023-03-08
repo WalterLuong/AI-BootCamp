@@ -48,7 +48,10 @@ class Book:
 		"""Get all recipe names for a given recipe_type"""
 		if isinstance(recipe_type, str):
 			if recipe_type == 'starter' or recipe_type == 'lunch' or recipe_type == 'dessert':
-				print(recipes_list[recipe_type])
+				lists = []
+				for elem in self.recipes_list[recipe_type]:
+					lists.append(elem.name)
+				print(lists)
 			else:
 				print("Recipe type must be a starter, a lunch or a dessert")
 		else:
