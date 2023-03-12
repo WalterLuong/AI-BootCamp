@@ -22,6 +22,9 @@ if __name__ == '__main__':
 	for x in generator(text):
 		print(x)
 	print("\nSHUFFLE TEST ".ljust(42, "_"), end="\n\n")
+	for x in generator(text):
+		print(x)
+	print("\nSHUFFLE TEST 2 ".ljust(42, "_"), end="\n\n")
 	for x in generator(text," ", "shuffle"):
 		print(x)
 	print("\nORDERED TEST ".ljust(42, "_"), end="\n\n")
