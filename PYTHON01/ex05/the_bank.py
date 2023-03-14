@@ -28,14 +28,19 @@ class Bank(object):
 		"""Check the security of the account before add it to he bank"""
 		if isinstance(account, Account):
 			if len(account.__dict__) % 2 == 0:
+				print('yo 1')
 				return False
-			if not any(x.startswith("zip") for x in account.__dict__) or any(x.startswith("addr") for x in account.__dict__):
+			if not any(x.startswith("zip") for x in account.__dict__) and any(x.startswith("addr") for x in account.__dict__):
+				print('yo 2')
 				return False
 			if any(x.startswith('b') for x in account.__dict__):
+				print('yo 3')
 				return False
-			if not 'name' in account.__dict__ or not 'id' in account.__dict__ or not 'value' in account.__dict__:
+			if not 'name' in account.__dict__.keys() or not 'id' in account.__dict__ or not 'value' in account.__dict__:
+				print('yo 4')
 				return False
 			if not isinstance(account.__dict__['name'], str) or not isinstance(account.__dict__['id'], int) or not isinstance(account.__dict__['value'], (int, float)):
+				print('yo 5')
 				return False
 			return True
 		return False
@@ -96,20 +101,29 @@ class Bank(object):
 			@name: str(name) of the account
 			@return True if success, False if an error occured
 		"""
-	
-if __name__ == '__main__':
-	bank = Bank()
-	bank.add(Account(
-		'Smith Jane',
-		zip='911-745',
-		value=1000.0,
-		ref='1044618427ff2782f0bbece0abd05f31',
-	))
-	bank.add(Account(
-		'William John',
-		zip='100-064',
-		value=6460.0,
-		ref='58ba2b9954cd278eda8a84147ca73c87',
-	))
-	if bank.transfer('William John', 'Smith Jane', 1000.0) is False:
-		print('Failed')
+		if isinstance(name, str):
+			if any(name == x.name for x in self.accounts):
+				account = next(x for x in self.accounts if x.name == name)
+				if not 'name' in account.__dict__.keys():
+					account.__dict__['name'] = 'TEMPORARY NAME'
+				if not 'id' in account.__dict__.keys():
+					account.__dict__['id'] = ID_COUNT
+					ID_COUNT += 1
+				if not 'value' in account.__dict__.keys():
+					account.__dict__['value'] = 0
+				if not any(x.startswith("zip") for x in account.__dict__) and not any(x.startswith("addr") for x in account.__dict__):
+					account.__dict__['zip'] = 75017
+				if any(x.startswith('b') for x in account.__dict__):
+					account.__dict__.pop(all(x.startswith('b') for x in account.__dict__))
+				if len(account.__dict__) % 2 == 0:
+					account.__dict__.pop(next(key for key in account.__dict__.keys() if not key in ['name', 'value', 'id', 'zip', 'addr']))
+				if not self.security_check(account):
+					print("We encounter an issue to fix the account.")
+					return False
+				return True
+			else:
+				print("The account: \033[4;31m" + name + "\033[m was not found")
+				return False
+		else:
+			print("The parameter for fix_account must be a string.")
+			return False

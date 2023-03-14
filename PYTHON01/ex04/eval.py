@@ -28,10 +28,22 @@ class Evaluator:
 
 if __name__ == '__main__':
 	words = ["Le", "Lorem", "Ipsum", "est", "simple"]
-	coefs = [1.0, 2.0, 1.0, 4.0, 0.5]
+	coefs = [1.0 , 2.0, 1.0, 4.0, 0.5]
+	print("Zip evaluate test".ljust(42, "_"))
+	print(words)
+	print(coefs)
 	print(Evaluator.zip_evaluate(coefs, words))
+	print("Enumerate evaluate test".ljust(42, "_"))
+	print(words)
+	print(coefs)
 	print(Evaluator.enumerate_evaluate(coefs, words))
 	words = ["salut", "les", "amis"]
 	coefs = [1.0, 2.0, 3.0]
+	print("Zip evaluate test".ljust(42, "_"))
+	print(words)
+	print(coefs)
 	print(Evaluator.zip_evaluate(coefs, words))
+	print("Enumerate evaluate test".ljust(42, "_"))
+	print(words)
+	print(coefs)
 	print(Evaluator.enumerate_evaluate(coefs, words))

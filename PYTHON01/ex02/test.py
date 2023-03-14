@@ -42,7 +42,6 @@ if __name__ == '__main__':
 	# (4,1)
 
 	print("Dot function ".ljust(42, '_'))
-	print("Example 1 ".ljust(42, '_'))
 	# Example 1:
 	v1 = Vector([[0.0], [1.0], [2.0], [3.0]])
 	v2 = Vector([[2.0], [1.5], [2.25], [4.0]])
@@ -58,10 +57,11 @@ if __name__ == '__main__':
 	print(v1)
 	# Expected output: to see what __str__() should do
 	# [[0.0, 1.0, 2.0, 3.0]]
-	print("Add ".ljust(42, '_'))
+	print("Test de calculs ".ljust(42, '_'))
 	wawa = v4 + v3
 	wawa2 = v4 - v3 - v4
 	print(wawa)
 	print(wawa2)
 	print(2 * wawa * 0)
 	print(v4 * 3 / 2)
+	print(2 / wawa)

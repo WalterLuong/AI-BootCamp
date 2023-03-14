@@ -17,12 +17,12 @@ def generator(text, sep=" ", option=None):
 		yield x
 
 if __name__ == '__main__':
-	text = text = "Le Lorem Ipsum est simplement du faux texte. est est fol texte. ok mec"
+	text = text = "Le Lorem Ipsum est simplement du faux texte. est est test texte. ok mec Salut"
 	print("\nNORMAL TEST ".ljust(42, "_"), end="\n\n")
 	for x in generator(text):
 		print(x)
-	print("\nSHUFFLE TEST ".ljust(42, "_"), end="\n\n")
-	for x in generator(text):
+	print("\nSHUFFLE TEST 1 ".ljust(42, "_"), end="\n\n")
+	for x in generator(text, " ", "shuffle"):
 		print(x)
 	print("\nSHUFFLE TEST 2 ".ljust(42, "_"), end="\n\n")
 	for x in generator(text," ", "shuffle"):
