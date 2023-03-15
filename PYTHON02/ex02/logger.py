@@ -5,11 +5,16 @@ import os
 def log(function):
 	def wrapper(*args, **kwargs):
 		func_name = function.__name__.replace('_', ' ').title()
+		username = os.getenv('USER', "default_user")
 		with open("machine.log", "a") as log_file:
 			start = time.time()
 			result = function(*args, **kwargs)
 			exec_time = time.time() - start
-			log_file.write("({})Running: {}[ exec-time = {} s ]\n".format("wluong", func_name.ljust(20, " "), format(exec_time, '.3')))
+			unit = 's'
+			if exec_time < 0.001:
+				unit = 'ms'
+				exec_time *= 1000
+			log_file.write(f'({username})Running: {func_name:19}[ exec-time = {exec_time:.3f} {unit} ]\n')
 			return result
 	return wrapper
 
