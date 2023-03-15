@@ -28,19 +28,14 @@ class Bank(object):
 		"""Check the security of the account before add it to he bank"""
 		if isinstance(account, Account):
 			if len(account.__dict__) % 2 == 0:
-				print('yo 1')
 				return False
 			if not any(x.startswith("zip") for x in account.__dict__) and any(x.startswith("addr") for x in account.__dict__):
-				print('yo 2')
 				return False
 			if any(x.startswith('b') for x in account.__dict__):
-				print('yo 3')
 				return False
 			if not 'name' in account.__dict__.keys() or not 'id' in account.__dict__ or not 'value' in account.__dict__:
-				print('yo 4')
 				return False
 			if not isinstance(account.__dict__['name'], str) or not isinstance(account.__dict__['id'], int) or not isinstance(account.__dict__['value'], (int, float)):
-				print('yo 5')
 				return False
 			return True
 		return False
