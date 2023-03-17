@@ -1,0 +1,1 @@
+This is a package containing a loading bar and a logger.

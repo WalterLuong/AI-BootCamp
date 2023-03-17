@@ -1,5 +1,3 @@
-import csv
-
 class CsvReader():
 
 	def __init__(self, filename=None, sep=',', header=False, skip_top=0, skip_bottom=0):
@@ -11,16 +9,23 @@ class CsvReader():
 
 	def __enter__(self):
 		self.dataset = []
-		if hasattr(self, 'filename'):
+		if hasattr(self, 'filename') and self.filename:
 			self.csv = open(self.filename, 'r')
 			for line in self.csv:
-				print(list(map(str.strip, line.split(self.sep))))
+				self.dataset.append(list((x.strip(' "\n') for x in line.split(self.sep))))
+			for cell in self.dataset:
+				if len(cell) != len(self.dataset[0]):
+					return None
+				for case in cell:
+					if len(case) == 0:
+						return None
 			return self
 		else:
-			return None
+			self.csv = None
+			return self.csv
 
-	def __exit__(self):
-		if hasattr(self, 'filename'):
+	def __exit__(self, exception_type, exception_value, exception_traceback):
+		if hasattr(self, 'filename') and self.csv:
 			self.csv.close()
 
 	def getdata(self):
@@ -28,7 +33,10 @@ class CsvReader():
 		Return:
 		nested list (list(list, list, ...)) representing the data.
 		"""
-		pass
+		start = self.skip_top
+		if self.header:
+			start += 1
+		return self.dataset[start:len(self.dataset) - self.skip_bottom]
 
 	def getheader(self):
 		""" Retrieves the header from csv file.
@@ -36,4 +44,6 @@ class CsvReader():
 		list: representing the data (when self.header is True).
 		None: (when self.header is False).
 		"""
-		pass
+		if self.header:
+			return self.dataset[0]
+		return None
