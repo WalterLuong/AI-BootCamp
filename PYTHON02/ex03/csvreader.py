@@ -6,20 +6,26 @@ class CsvReader():
 		self.header = header
 		self.skip_top = skip_top
 		self.skip_bottom = skip_bottom
+		self.csv = None
+		self.dataset = []
+
 
 	def __enter__(self):
-		self.dataset = []
 		if hasattr(self, 'filename') and self.filename:
-			self.csv = open(self.filename, 'r')
-			for line in self.csv:
-				self.dataset.append(list((x.strip(' "\n') for x in line.split(self.sep))))
-			for cell in self.dataset:
-				if len(cell) != len(self.dataset[0]):
-					return None
-				for case in cell:
-					if len(case) == 0:
+			try:
+				self.csv = open(self.filename, 'r')
+				for line in self.csv:
+					self.dataset.append(list((x.strip(' "\n') for x in line.split(self.sep))))
+				for cell in self.dataset:
+					if len(cell) != len(self.dataset[0]):
 						return None
-			return self
+					for case in cell:
+						if len(case) == 0:
+							return None
+				return self
+			except:
+				print("This file doesn't exist.")
+				return None
 		else:
 			self.csv = None
 			return self.csv

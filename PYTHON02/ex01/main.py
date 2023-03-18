@@ -4,9 +4,13 @@ def what_are_the_vars(*args, **kwargs):
 	"""
 	object = ObjectC()
 	for key, value in kwargs.items():
+		if hasattr(object, str(key)):
+			return None
 		setattr(object, key, value)
 	for key, value in enumerate(args):
 		val_i = "var_{}".format(key)
+		if hasattr(object, val_i):
+			return None
 		setattr(object, val_i, value)
 	return object
 
@@ -37,8 +41,8 @@ if __name__ == "__main__":
 	doom_printer(obj)
 	obj = what_are_the_vars(12, "Yes", [0, 0, 0], a=10, hello="world")
 	doom_printer(obj)
-	obj = None
+	obj = what_are_the_vars(42, a=10, var_0="world")
 	doom_printer(obj)
-	obj = what_are_the_vars(12, "Yes", a=10, var_2="world")
+	obj = what_are_the_vars(42, "Yes", a=10, var_2="world")
 	doom_printer(obj)
 

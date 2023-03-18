@@ -1,6 +1,6 @@
 from csvreader import CsvReader
 
-with CsvReader('good.csv', ',', True) as file:
+with CsvReader('godod.csv', ',', True) as file:
 	if file == None:
 		print("File is corrupted")
 	else:
