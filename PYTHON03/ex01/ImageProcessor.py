@@ -39,4 +39,4 @@ if __name__ == '__main__':
     arr = ip.load('./42AI.png')
     print(arr)
     print(type(arr))
-    ip.display(5)
+    ip.display(arr)
