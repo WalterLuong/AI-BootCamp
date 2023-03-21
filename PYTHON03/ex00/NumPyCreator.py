@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    NumPyCreator.py                                    :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/03/21 15:19:04 by wluong            #+#    #+#              #
+#    Updated: 2023/03/21 15:19:06 by wluong           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 import numpy as np
 
 class NumPyCreator:
@@ -66,3 +78,5 @@ if __name__ == '__main__':
 	print(e)
 	f = npc.random(shape)
 	print(f)
+	g = npc.identity(5)
+	print(g)

@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    ft_reduce.py                                       :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/03/21 15:19:19 by wluong            #+#    #+#              #
+#    Updated: 2023/03/21 15:19:19 by wluong           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 def ft_reduce(function_to_apply, iterable):
 	"""Apply function of two arguments cumulatively.
 	Args:

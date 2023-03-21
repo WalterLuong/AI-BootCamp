@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    ft_filter.py                                       :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/03/21 15:19:12 by wluong            #+#    #+#              #
+#    Updated: 2023/03/21 15:19:13 by wluong           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 def ft_filter(function_to_apply, iterable):
 	"""Filter the result of function apply to all elements of the iterable.
 	Args:
