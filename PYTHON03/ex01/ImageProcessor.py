@@ -31,12 +31,14 @@ class ImageProcessor:
         if not isinstance(array, np.ndarray):
             return None
         
-        img  = Image.fromarray(np.uint8(array * 255), "RGB")
+        img  = Image.fromarray(np.uint8(array * 255))
         img.show()
 
 if __name__ == '__main__':
     ip = ImageProcessor()
-    arr = ip.load('./42AI.png')
+    # arr = ip.load('./42AI.png')
+    arr = ip.load('./empty_file.png')
     print(arr)
     print(type(arr))
+    print(np.shape(arr)[:2])
     ip.display(arr)

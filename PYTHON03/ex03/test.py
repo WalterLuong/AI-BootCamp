@@ -12,14 +12,14 @@
 
 from ColorFilter import ColorFilter
 from ImageProcessor import ImageProcessor
+import numpy as np
 
 if __name__ == '__main__':
     ip = ImageProcessor()
     image = ip.load('./elon_canaGAN.png')
-    # image = ip.load('../ex01/42AI.png')
-    print(image)
+    image2 = ip.load('../ex01/42AI.png')
     cf = ColorFilter()
-    a = cf.invert(image)
+    a = cf.to_celluloid(image2)
     # print(a)
-    ip.display(image)
+    ip.display(image2)
     ip.display(a)
