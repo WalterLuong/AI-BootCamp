@@ -6,7 +6,7 @@
 #    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/22 19:45:30 by wluong            #+#    #+#              #
-#    Updated: 2023/03/22 20:12:16 by wluong           ###   ########.fr        #
+#    Updated: 2023/03/23 19:40:24 by wluong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ if __name__ == '__main__':
     image = ip.load('./elon_canaGAN.png')
     image2 = ip.load('../ex01/42AI.png')
     cf = ColorFilter()
-    a = cf.to_celluloid(image2)
-    # print(a)
-    ip.display(image2)
+    a = cf.to_grayscale(image, 'w', weights = [0.0, 0.5, 0.5])
+    ip.display(image)
     ip.display(a)

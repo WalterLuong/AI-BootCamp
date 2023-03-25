@@ -6,7 +6,7 @@
 #    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/22 18:58:26 by wluong            #+#    #+#              #
-#    Updated: 2023/03/22 20:17:02 by wluong           ###   ########.fr        #
+#    Updated: 2023/03/23 19:42:02 by wluong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,10 @@ class ColorFilter:
         if not self.__check_if_array(array):
             return None
         if len(array[0][0]) == 4:
-            return np.dstack((1 - array[:,:,:3], array[:,:,3]))
+            arr = 1 - array
+            arr[:,:,3] = array[:,:,3]
+            return arr
+            # return np.dstack((1 - array[:,:,:3], array[:,:,3]))
         return 1 - array
     
     def to_blue(self, array):
@@ -133,3 +136,52 @@ class ColorFilter:
         if len(array[0][0]) == 4:
             cell_image[:,:,3] = array[:,:,3]
         return cell_image
+
+    def to_grayscale(self, array, filter, **kwargs):
+        """
+        Applies a grayscale filter to the image received as a numpy array.
+        For filter = 'mean'/'m': performs the mean of RBG channels.
+        For filter = 'weight'/'w': performs a weighted mean of RBG channels.
+        Args:
+        -----
+        array: numpy.ndarray corresponding to the image.
+        filter: string with accepted values in ['m','mean','w','weight']
+        weights: [kwargs] list of 3 floats where the sum equals to 1,
+        corresponding to the weights of each RBG channels.
+        Return:
+        -------
+        array: numpy.ndarray corresponding to the transformed image.
+        None: otherwise.
+        Raises:
+        -------
+        This function should not raise any Exception.
+        """
+        if not isinstance(array, np.ndarray):
+            return None
+        if not isinstance(filter, str) or filter not in ['mean', 'm', 'weight', 'w']:
+            return None
+        if filter in ['mean', 'm']:
+            if len(kwargs) !=0 :
+                return None
+            arr = np.copy(array)
+            for x in arr:
+                for y in x:
+                    y[::] =  y.sum() / np.shape(arr)[2]
+            if len(array[0][0]) == 4:
+                arr[:,:,3] = array[:,:,3]
+            return arr
+        elif filter in ['weight', 'w']:
+            if len(kwargs) != 1 or 'weights' not in kwargs.keys():
+                return None
+            if not isinstance(kwargs['weights'], list) or len(kwargs['weights']) != 3:
+                return None
+            if not all(isinstance(x, float) for x in kwargs['weights']) or sum(kwargs['weights']) != 1:
+                return None
+            arr = np.copy(array)
+            w = np.array(kwargs['weights'])
+            for x in arr:
+                for y in x:
+                    y[::] = (y[::4] * w).sum()
+            if len(array[0][0]) == 4:
+                arr[:,:,3] = array[:,:,3]
+            return arr
