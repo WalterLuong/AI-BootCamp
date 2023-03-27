@@ -6,7 +6,7 @@
 #    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 19:42:36 by wluong            #+#    #+#              #
-#    Updated: 2023/03/25 19:52:42 by wluong           ###   ########.fr        #
+#    Updated: 2023/03/27 19:05:54 by wluong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,28 +84,15 @@ class KmeansClustering:
         return self.predictions
 
 if __name__ == '__main__':
-
-
-    kmeans = KmeansClustering()
-    colors = ['r', 'g', 'b', 'c', 'm', 'y', 'k']
+    # kmeans = KmeansClustering()
+    # colors = ['r', 'g', 'b', 'c', 'm', 'y', 'k']
 
     with CsvReader('./solar_system_census.csv', ',', True) as data:
         index = np.array(int(x[0]) for x in data.getdata())
-        height = np.array(x[1] for x in data.getdata())
-        weight = np.array(float(x[2]) for x in data.getdata())
+        height =[float(x[1]) for x in data.getdata()]
+        weight = [float(x[2]) for x in data.getdata()]
         bone_density = [float(x[3]) for x in data.getdata()]
-        # plt.scatter(index, height, c = 'r')
-        # plt.show()
-        # plt.scatter(index, weight, c = 'b')
-        # plt.show()
-        # plt.scatter(index, bone_density, c = 'g')
-        # plt.show()
-    kmeans.fit(height)
-    for classification in kmeans.classifications:
-        color = colors[classification]
-        for featureset in kmeans.classifications[classification]:
-            plt.scatter(featureset[0], featureset[1], marker='x', color=color, s=150, linewidths=5, zorder=10)
-    
-    for centroid in kmeans.centroids:
-        plt.scatter(kmeans.centroids[centroid][0], kmeans.centroids[centroid][1], marker='o', color='k', s=150, linewidths=5)
+    fig = plt.figure()
+    ax = fig.add_subplot(projection='3d')
+    ax.scatter(height, weight, bone_density)
     plt.show()
