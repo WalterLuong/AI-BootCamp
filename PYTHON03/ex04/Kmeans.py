@@ -21,14 +21,18 @@ class KmeansClustering:
         self.ncentroid = ncentroid # number of centroids
         self.max_iter = max_iter # number of max iterations to update the centroids
         self.centroids = [] # values of the centroids
-        self.clusters= [[],[],[],[]] # list of datas for each centroid
+        # self.clusters= [[],[],[],[]] # list of datas for each centroid
+        self.clusters = [[] for x in range(4)]
 
     def __euclidian_distance(self, centroid, point):
         dist = sum((x - y) ** 2 for x,y in zip(centroid, point))
         return dist
 
     def __mean_cluster(self, X):
-        pass
+        mean = []
+        for i in range(len(X[0])):
+            mean[i] = sum(X[:,i]) / len(X)
+        return mean
     
     def fit(self, X):
         """
@@ -47,15 +51,18 @@ class KmeansClustering:
         random_data_index = random.sample(range(len(X)), 4)
         for i in range(len(random_data_index)):
             self.centroids.append(X[random_data_index[i]])
-        # for iteration in range(self.max_iter):
-        for data in X:
-            dist = self.__euclidian_distance(data, self.centroids[0])
-            cluster = (0, dist)
-            for i in range(len(self.centroids)):
-                new_dist = self.__euclidian_distance(data, self.centroids[i])
-                if new_dist < cluster[1]:
-                    cluster = (i, new_dist)
-            self.clusters[cluster[0]].append(data)
+        for iteration in range(self.max_iter):
+            self.clusters = [[] for x in range(4)]
+            for data in X:
+                dist = self.__euclidian_distance(data, self.centroids[0])
+                cluster = (0, dist)
+                for i in range(len(self.centroids)):
+                    new_dist = self.__euclidian_distance(data, self.centroids[i])
+                    if new_dist < cluster[1]:
+                        cluster = (i, new_dist)
+                self.clusters[cluster[0]].append(data)
+                for j in range(len(self.centroids)):
+                    self.centroids[i] = self.__mean_cluster(self.clusters[i])
 
 
     def predict(self, X):
