@@ -10,4 +10,4 @@ if __name__ == '__main__':
     arr3 = np.array([[1, 2, 3],[1, 2, 3],[1, 2, 3]])
     print(spb.juxtapose(arr3, 3, 1))
     arr4 = np.array(['o', 'O', 'o'])
-    print(spb.mosaic(arr4, (-6,3)))
+    print(spb.mosaic(arr4, (6,3)))
