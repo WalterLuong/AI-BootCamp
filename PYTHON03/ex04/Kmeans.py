@@ -6,7 +6,7 @@
 #    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 19:42:36 by wluong            #+#    #+#              #
-#    Updated: 2023/03/29 02:09:25 by wluong           ###   ########.fr        #
+#    Updated: 2023/03/29 20:15:16 by wluong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random
 import sys
+import time
 
 class KmeansClustering:
 
@@ -22,8 +23,7 @@ class KmeansClustering:
         self.ncentroid = ncentroid # number of centroids
         self.max_iter = max_iter # number of max iterations to update the centroids
         self.centroids = [] # values of the centroids
-        # self.clusters= [[],[],[],[]] # list of datas for each centroid
-        self.clusters = [[] for x in range(4)]
+        self.clusters = [[] for x in range(ncentroid)] # list of datas for each centroid
         if not isinstance(max_iter, int) or max_iter <= 0:
             raise TypeError
         if not isinstance(ncentroid, int) or ncentroid <= 0:
@@ -57,11 +57,17 @@ class KmeansClustering:
         -------
         This function should not raise any Exception.
         """
-        random_data_index = random.sample(range(len(X)), 4)
+        colors = ['r', 'g', 'b', 'y', 'm', 'c', 'k']
+
+        fig = plt.figure() #Deuxieme figure avec visualisation des clusters
+        ax = fig.add_subplot(projection='3d')
+
+        random_data_index = random.sample(range(len(X)), self.ncentroid)
         for i in range(len(random_data_index)):
             self.centroids.append(X[random_data_index[i]])
         for iteration in range(self.max_iter):
-            self.clusters = [[] for x in range(4)]
+            ax.cla()
+            self.clusters = [[] for x in range(self.ncentroid)]
             for data in X:
                 dist = self.__euclidian_distance(data, self.centroids[0])
                 cluster = (0, dist)
@@ -72,6 +78,14 @@ class KmeansClustering:
                 self.clusters[cluster[0]].append(data)
             for j in range(len(self.clusters)):
                 self.centroids[j] = self.__mean_cluster(self.clusters[j])
+            for nb in range(len(self.centroids)):
+                ax.scatter(self.centroids[nb][0], self.centroids[nb][1], self.centroids[nb][2],marker='^', c='black')
+            for point in range(len(self.clusters)):
+                p = np.array(self.clusters[point]).astype(float)
+                ax.scatter(p[:,0], p[:,1], p[:,2], marker='o', c=colors[point])
+            plt.draw()
+            plt.pause(0.1)
+        plt.show()
 
 
     def predict(self, X):
@@ -87,11 +101,10 @@ class KmeansClustering:
         -------
         This function should not raise any Exception.
         """
-        return np.array(self.clusters)
+        
 
 if __name__ == '__main__':
 
-    kmeans = KmeansClustering(30) #Algorithme de K-means Clustering
     if len(sys.argv) != 4:
         print("You need 4 arguments.")
         exit(1)
@@ -132,39 +145,35 @@ if __name__ == '__main__':
         print("Can't open the file: ", filepath[1])
         exit(1)
 
+    kmeans = KmeansClustering(max_iter=int(max_it[1]), ncentroid=int(ncent[1])) #Algorithme de K-means Clustering
     md = np.delete(md, 0, axis=1).astype(float) #Suppression de l'index
 
     kmeans.fit(md) #Entrainement de l'algorithme
 
 
-    a = np.array(kmeans.clusters[0]).astype(float) #Cluster 1
-    b = np.array(kmeans.clusters[1]).astype(float) #Cluster 2
-    c = np.array(kmeans.clusters[2]).astype(float) #Cluster 3
-    d = np.array(kmeans.clusters[3]).astype(float) #Cluster 4
+    # a = np.array(kmeans.clusters[0]).astype(float) #Cluster 1
+    # b = np.array(kmeans.clusters[1]).astype(float) #Cluster 2
+    # c = np.array(kmeans.clusters[2]).astype(float) #Cluster 3
+    # d = np.array(kmeans.clusters[3]).astype(float) #Cluster 4
 
-    cl1 = np.array(kmeans.centroids[0]).astype(float) #Centroid 1
-    cl2 = np.array(kmeans.centroids[1]).astype(float) #Centroid 2
-    cl3 = np.array(kmeans.centroids[2]).astype(float) #Centroid 3
-    cl4 = np.array(kmeans.centroids[3]).astype(float) #Centroid 4
+    # cl1 = np.array(kmeans.centroids[0]).astype(float) #Centroid 1
+    # cl2 = np.array(kmeans.centroids[1]).astype(float) #Centroid 2
+    # cl3 = np.array(kmeans.centroids[2]).astype(float) #Centroid 3
+    # cl4 = np.array(kmeans.centroids[3]).astype(float) #Centroid 4
 
-    fig = plt.figure() #Premiere figure, sans visualisation des clusters
-    ax2 = fig.add_subplot(projection='3d')
-    ax2.scatter(md[:,0], md[:,1], md[:,2], marker='o', c='b')
-    plt.show()
-
-    fig = plt.figure() #Deuxieme figure avec visualisation des clusters
-    ax = fig.add_subplot(projection='3d')
-    ax.scatter(cl1[0], cl1[1], cl1[2], marker='^', c='black')
-    ax.scatter(cl2[0], cl2[1], cl2[2], marker='^', c='black')
-    ax.scatter(cl3[0], cl3[1], cl3[2], marker='^', c='black')
-    ax.scatter(cl4[0], cl4[1], cl4[2], marker='^', c='black')
-    ax.scatter(a[:,0], a[:,1], a[:,2], marker='o', c='r')
-    ax.scatter(b[:,0], b[:,1], b[:,2], marker='o', c='b')
-    ax.scatter(c[:,0], c[:,1], c[:,2], marker='o', c='y')
-    ax.scatter(d[:,0], d[:,1], d[:,2], marker='o', c='g')
-    plt.title('Habitants du système solaire')
-    plt.xlabel('Height')
-    plt.ylabel('Weight')
-    ax.set_zlabel('Bone Density')
-    plt.show()
-    print(np.array(kmeans.predict(md)))
+    # fig = plt.figure() #Deuxieme figure avec visualisation des clusters
+    # ax = fig.add_subplot(projection='3d')
+    # ax.scatter(cl1[0], cl1[1], cl1[2], marker='^', c='black')
+    # ax.scatter(cl2[0], cl2[1], cl2[2], marker='^', c='black')
+    # ax.scatter(cl3[0], cl3[1], cl3[2], marker='^', c='black')
+    # ax.scatter(cl4[0], cl4[1], cl4[2], marker='^', c='black')
+    # ax.scatter(a[:,0], a[:,1], a[:,2], marker='o', c='r')
+    # ax.scatter(b[:,0], b[:,1], b[:,2], marker='o', c='b')
+    # ax.scatter(c[:,0], c[:,1], c[:,2], marker='o', c='y')
+    # ax.scatter(d[:,0], d[:,1], d[:,2], marker='o', c='g')
+    # plt.title('Habitants du système solaire')
+    # plt.xlabel('Height')
+    # plt.ylabel('Weight')
+    # ax.set_zlabel('Bone Density')
+    # plt.show()
+    # print(np.array(kmeans.predict(md)))

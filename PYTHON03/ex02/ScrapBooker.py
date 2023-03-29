@@ -67,7 +67,7 @@ class ScrapBooker:
             return None
         if n > np.shape(array)[not axis]:
             return None
-        return np.delete(array, n - 1, not axis)
+        return np.delete(array, list(range(n - 1, array.shape[not axis], n)), not axis)
 
     def juxtapose(self, array, n, axis):
         """
