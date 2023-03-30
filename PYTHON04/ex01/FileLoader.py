@@ -6,7 +6,7 @@
 #    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/29 02:49:43 by wluong            #+#    #+#              #
-#    Updated: 2023/03/30 18:17:24 by wluong           ###   ########.fr        #
+#    Updated: 2023/03/30 18:17:29 by wluong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ class FileLoader:
         print("Loading dataset of dimensions %d x %d" % df.shape)
         return df
     
-    def display(self, df, n):
+    def display(self, df, n = 100):
         """
         Takes a pandas.DataFrame and an integer as arguments,
         displays the first n rows of the dataset if n is positive, or the last n rows if n is

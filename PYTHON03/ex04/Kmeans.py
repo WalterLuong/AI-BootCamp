@@ -6,7 +6,7 @@
 #    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 19:42:36 by wluong            #+#    #+#              #
-#    Updated: 2023/03/29 20:15:16 by wluong           ###   ########.fr        #
+#    Updated: 2023/03/30 16:20:03 by wluong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,10 +30,16 @@ class KmeansClustering:
             raise TypeError
 
     def __euclidian_distance(self, centroid, point):
+        """
+        Calcul of the distance between a data and a centroid
+        """
         dist = sum((x - y) ** 2 for x,y in zip(centroid, point))
         return dist
 
     def __mean_cluster(self, X):
+        """
+        Calcul of the mean between all data from a cluster
+        """
         mean = [0, 0, 0]
         for i in range(len(X[0])):
             for j in range(len(X)):
@@ -101,7 +107,17 @@ class KmeansClustering:
         -------
         This function should not raise any Exception.
         """
-        
+        planets = ['Asteroid Belt', 'Earth', 'Mars', 'Venus']
+        predict = []
+        for data in X:
+            dist = self.__euclidian_distance(data, self.centroids[0])
+            which_planet = (0, dist)
+            for i in range(len(self.centroids)):
+                new_dist = self.__euclidian_distance(data, self.centroids[i])
+                if new_dist < which_planet[1]:
+                    which_planet = (i, new_dist)
+            predict.append(planets[which_planet[0]])
+        return np.array(predict)
 
 if __name__ == '__main__':
 
@@ -149,31 +165,7 @@ if __name__ == '__main__':
     md = np.delete(md, 0, axis=1).astype(float) #Suppression de l'index
 
     kmeans.fit(md) #Entrainement de l'algorithme
-
-
-    # a = np.array(kmeans.clusters[0]).astype(float) #Cluster 1
-    # b = np.array(kmeans.clusters[1]).astype(float) #Cluster 2
-    # c = np.array(kmeans.clusters[2]).astype(float) #Cluster 3
-    # d = np.array(kmeans.clusters[3]).astype(float) #Cluster 4
-
-    # cl1 = np.array(kmeans.centroids[0]).astype(float) #Centroid 1
-    # cl2 = np.array(kmeans.centroids[1]).astype(float) #Centroid 2
-    # cl3 = np.array(kmeans.centroids[2]).astype(float) #Centroid 3
-    # cl4 = np.array(kmeans.centroids[3]).astype(float) #Centroid 4
-
-    # fig = plt.figure() #Deuxieme figure avec visualisation des clusters
-    # ax = fig.add_subplot(projection='3d')
-    # ax.scatter(cl1[0], cl1[1], cl1[2], marker='^', c='black')
-    # ax.scatter(cl2[0], cl2[1], cl2[2], marker='^', c='black')
-    # ax.scatter(cl3[0], cl3[1], cl3[2], marker='^', c='black')
-    # ax.scatter(cl4[0], cl4[1], cl4[2], marker='^', c='black')
-    # ax.scatter(a[:,0], a[:,1], a[:,2], marker='o', c='r')
-    # ax.scatter(b[:,0], b[:,1], b[:,2], marker='o', c='b')
-    # ax.scatter(c[:,0], c[:,1], c[:,2], marker='o', c='y')
-    # ax.scatter(d[:,0], d[:,1], d[:,2], marker='o', c='g')
-    # plt.title('Habitants du système solaire')
-    # plt.xlabel('Height')
-    # plt.ylabel('Weight')
-    # ax.set_zlabel('Bone Density')
-    # plt.show()
-    # print(np.array(kmeans.predict(md)))
+    a = [[176.05, 62.04, 0.5]]
+    # print(kmeans.centroids)
+    print(kmeans.predict(np.array(a)))
+    # print(kmeans.predict(md))
