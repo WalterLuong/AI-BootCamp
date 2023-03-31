@@ -6,13 +6,17 @@
 #    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/31 01:36:30 by wluong            #+#    #+#              #
-#    Updated: 2023/03/31 02:58:39 by wluong           ###   ########.fr        #
+#    Updated: 2023/03/31 17:01:11 by wluong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 import pandas as pd
 from FileLoader import FileLoader
+import numpy as np
+import seaborn as sns
+from scipy import stats
 
 
 class MyPlotLib:
@@ -51,8 +55,39 @@ class MyPlotLib:
             ax.hist(df[features[0]])
         plt.show()
 
+    @staticmethod
+    def density(data, features):
+        if not MyPlotLib.__check_params(data, features):
+            return
+        df = data.drop_duplicates('Name')
+        fig, ax = plt.subplots()
+        for i in range(len(features)) :
+            ax = sns.kdeplot(df[features[i]], fill=True)
+        ax.set_xlabel(None)
+        ax.legend(features)
+        ax.xaxis.set_major_locator(ticker.MultipleLocator(15.0))
+        plt.show()
+
+    @staticmethod
+    def pair_plot(data, features):
+        if not MyPlotLib.__check_params(data, features):
+            return
+        df = data.drop_duplicates('Name')
+        ax1 = pd.plotting.scatter_matrix(df[features])
+        plt.show()
+
+    @staticmethod
+    def box_plot(data, features):
+        if not MyPlotLib.__check_params(data, features):
+            return
+        df = data.drop_duplicates('Name')
+        ax = df.boxplot(column=features, grid=False)
+        plt.show()
 
 if __name__ == '__main__':
     fl = FileLoader()
     df = fl.load('../ex01/athlete_events.csv')
-    MyPlotLib.histogram(df, ["Height"])
+    MyPlotLib.histogram(df, ["Weight", "Height"])
+    MyPlotLib.density(df, ["Weight", "Height"])
+    MyPlotLib.pair_plot(df, ["Weight", "Height"])
+    MyPlotLib.box_plot(df, ["Weight", "Height"])
