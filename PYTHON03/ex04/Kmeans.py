@@ -166,6 +166,6 @@ if __name__ == '__main__':
 
     kmeans.fit(md) #Entrainement de l'algorithme
     a = [[176.05, 62.04, 0.5]]
-    # print(kmeans.centroids)
+    print(kmeans.centroids)
     print(kmeans.predict(np.array(a)))
     # print(kmeans.predict(md))

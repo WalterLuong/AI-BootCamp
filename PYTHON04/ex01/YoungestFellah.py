@@ -6,12 +6,13 @@
 #    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 17:26:50 by wluong            #+#    #+#              #
-#    Updated: 2023/03/30 18:08:18 by wluong           ###   ########.fr        #
+#    Updated: 2023/03/31 00:23:28 by wluong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 from FileLoader import FileLoader
 import pandas as pd
+
 
 def youngest_fellah(df, year):
     if not isinstance(df, pd.core.frame.DataFrame):
@@ -26,7 +27,7 @@ def youngest_fellah(df, year):
 
 
 if __name__ == '__main__':
-    fl =FileLoader()
+    fl = FileLoader()
     df = fl.load('./athlete_events.csv')
     re = youngest_fellah(df, 102)
     print(re)
