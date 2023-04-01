@@ -6,7 +6,7 @@
 #    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 19:05:32 by wluong            #+#    #+#              #
-#    Updated: 2023/03/30 20:40:15 by wluong           ###   ########.fr        #
+#    Updated: 2023/04/01 13:23:07 by wluong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,3 @@ def how_many_medals(df, name):
             actual_medals[2] += 1
     medals.append(dict(zip(['G', 'S', 'B'], actual_medals)))
     return dict(zip(years, medals))
-    
-if __name__ == '__main__':
-    fl = FileLoader()
-    df = fl.load('../ex01/athlete_events.csv')
-    print(how_many_medals(df, 'Kjetil Andr Aamodt'))

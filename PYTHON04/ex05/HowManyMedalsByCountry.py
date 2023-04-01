@@ -6,7 +6,7 @@
 #    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/31 00:26:03 by wluong            #+#    #+#              #
-#    Updated: 2023/03/31 01:33:02 by wluong           ###   ########.fr        #
+#    Updated: 2023/04/01 17:45:21 by wluong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,9 +39,3 @@ def how_many_medals_by_country(df, country):
                                == 'Bronze']) + len(team_sport[team_sport['Medal'] == 'Bronze'])
         medals.append(dict(zip(['G', 'S', 'B'], actual_medals)))
     return dict(zip(years, medals))
-
-
-if __name__ == '__main__':
-    fl = FileLoader()
-    df = fl.load('../ex01/athlete_events.csv')
-    print(how_many_medals_by_country(df, 'United States'))

@@ -6,7 +6,7 @@
 #    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/29 02:49:43 by wluong            #+#    #+#              #
-#    Updated: 2023/03/30 18:17:36 by wluong           ###   ########.fr        #
+#    Updated: 2023/04/01 13:28:42 by wluong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,8 +47,3 @@ class FileLoader:
             print(df[n:])
         else:
             print(df[:n])
-
-if __name__ == '__main__':
-    fl = FileLoader()
-    df = fl.load('../ex01/athlete_events.csv')
-    fl.display(df, 10)

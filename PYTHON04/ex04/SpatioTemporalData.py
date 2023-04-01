@@ -6,7 +6,7 @@
 #    By: wluong <wluong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:33:00 by wluong            #+#    #+#              #
-#    Updated: 2023/03/31 00:07:39 by wluong           ###   ########.fr        #
+#    Updated: 2023/04/01 13:28:48 by wluong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,11 +32,3 @@ class SpatioTemporalData:
             return None
         df_date = self.data[self.data['Year'] == date]
         return list(df_date['City'].drop_duplicates())
-
-
-if __name__ == '__main__':
-    fl = FileLoader()
-    df = fl.load('../ex01/athlete_events.csv')
-    sp = SpatioTemporalData(df)
-    print(sp.when('Athina'))
-    print(sp.where(1996))
